@@ -158,3 +158,11 @@ Invoke the meditations skill with the gateway — same skill, smoother experienc
 ## Closing
 
 This Profile and Gateway pattern I mentioned is essentially what we implemented at Docker in our open source project MCP Gateway as part of an experimental feature we called Profiles.
+
+---
+
+## References
+
+![QR Code](qr.png)
+
+`github.com/bobbyhouse/talks`

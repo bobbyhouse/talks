@@ -3,6 +3,8 @@
 **Bobby House** — Sr. Software Engineer, Docker
 MCP Dev Summit 2026
 
+- Talk: https://mcpdevsummitna26.sched.com/event/2Hbhw
+
 ## References
 
 ### MCP Servers
