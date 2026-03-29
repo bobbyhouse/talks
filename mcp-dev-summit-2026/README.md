@@ -10,12 +10,12 @@ MCP Dev Summit 2026
 #### Project Gutenberg MCP
 - GitHub: https://github.com/bobbyhouse/project-gutenberg-mcp
 - Docker Hub: https://hub.docker.com/r/roberthouse224/project-gutenberg-mcp
-- Registry: [io.github.bobbyhouse/project-gutenberg-mcp](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.bobbyhouse%2Fproject-gutenberg-mcp)
+- Registry: [io.github.bobbyhouse/project-gutenberg-mcp](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.bobbyhouse%2Fproject-gutenberg-mcp/versions)
 
 #### Append Log MCP
 - GitHub: https://github.com/bobbyhouse/append-log-mcp
 - Docker Hub: https://hub.docker.com/r/roberthouse224/append-log-mcp
-- Registry: [io.github.bobbyhouse/append-log-mcp](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.bobbyhouse%2Fappend-log-mcp)
+- Registry: [io.github.bobbyhouse/append-log-mcp](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.bobbyhouse%2Fappend-log-mcp/versions)
 
 ### Claude Code Skills
 
