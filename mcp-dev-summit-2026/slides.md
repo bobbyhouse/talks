@@ -48,7 +48,7 @@ Let's build a skill. The dependency is a profile — a YAML manifest packaged as
 
 ### Example
 
-Invoking skill-builder to create a meditations skill:
+Invoking skill-builder to create a meditations skill — server dependencies are resolved and packed into an OCI artifact:
 
 ```
 Use skill-builder
@@ -70,17 +70,19 @@ text, provide just a small excerpt that includes the original text and a terse i
 *(Goal: Addressable + Decoupled)*
 
 ```mermaid
-flowchart LR
-    A(["server-name + version"])
-    B["MCP Registry\nregistry.modelcontextprotocol.io"]
-    C["docker.io/owner/server:v1.0.0\n(mutable tag)"]
-    D["OCI Registry"]
-    E(["docker.io/owner/server@sha256:abc123...\ncontent-addressed"])
+sequenceDiagram
+    participant SB as Skill Builder
+    participant Registry as MCP Registry
+    participant OCI as OCI Registry
+    participant Artifact as OCI Artifact
 
-    A -->|"lookup"| B
-    B -->|"OCI identifier"| C
-    C -->|"docker pull"| D
-    D -->|"sha256 digest"| E
+    SB->>Registry: lookup server-name + version
+    Registry-->>SB: docker.io/owner/server:v1.0.0
+
+    SB->>OCI: resolve docker.io/owner/server:v1.0.0
+    OCI-->>SB: docker.io/owner/server@sha256:abc123…
+
+    SB->>Artifact: store server@sha256:abc123…
 ```
 
 ---
@@ -115,14 +117,47 @@ Configuration with values either specified by the skill author or explicitly lef
 flowchart LR
     Ref(["registry/ns/profile@sha256:abc"])
 
-    subgraph Image["OCI Scratch Image"]
-        subgraph Manifest["profile.yaml"]
-            S1["server-a@sha256:111...\nconfig: KEY=val, KEY2="]
-            S2["server-b@sha256:222...\nconfig: KEY=val"]
-        end
+    subgraph Image["OCI Artifact"]
+        S1["server-a@sha256:111...\nconfig: KEY=val, KEY2="]
+        S2["server-b@sha256:222...\nconfig: KEY=val"]
     end
 
     Ref --> Image
+```
+
+---
+
+### Running the Skill
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Claude
+    participant SKILL as SKILL.md
+    participant OCI as OCI Registry
+    participant FS as .mcp.json
+
+    User->>Claude: /meditations
+    Claude->>SKILL: load skill
+    SKILL-->>Claude: restrictToolAccess: [4 MCP tools only]
+
+    Claude->>FS: check .mcp.json + ~/.claude/settings.json
+    FS-->>Claude: servers not registered
+
+    Claude->>OCI: pull profile@sha256:f25e…
+    OCI-->>Claude: server identifiers + config (GUTENBERG_BASE_URL undefined)
+
+    Claude->>User: GUTENBERG_BASE_URL is required. What is your Gutenberg base URL?
+    User-->>Claude: http://host.docker.internal:8080
+
+    Claude->>User: Register servers at project / user / local? (default: project)
+    User-->>Claude: project
+
+    Claude->>FS: write mcpServers to .mcp.json
+    FS-->>Claude: saved
+
+    User->>Claude: restart Claude
+    User->>Claude: /meditations
 ```
 
 ---
@@ -136,6 +171,7 @@ Invoke the meditations skill — no gateway, just the profile.
 ### Issues
 * No good way to "load" the servers
 * No lifecycle management — no clean way to uninstall or reload servers
+* `.mcp.json` wrangling — reading, merging, and writing config by hand is fragile
 
 ---
 

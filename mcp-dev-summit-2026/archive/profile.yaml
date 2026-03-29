@@ -1,0 +1,14 @@
+name: meditations-profile
+servers:
+  - name: project-gutenberg-mcp
+    identifier: roberthouse224/project-gutenberg-mcp@sha256:6460cba7b27343be72a85cbf5484e024711eb3aa824a18b69e67fe906722aa8d
+    config:
+      GUTENBERG_BASE_URL:          # undefined — end-user supplies this
+      GUTENBERG_TOOLS: list_passages,get_passage
+      GUTENBERG_BOOK_ID: "2680"
+
+  - name: append-log-mcp
+    identifier: roberthouse224/append-log-mcp@sha256:5008d346d8c653caab0309999e694a2a63cf3b2c3bcb7127a1bd492ed074476f
+    config:
+      APPEND_LOG_FILE: /data/log.jsonl
+      APPEND_LOG_TOOLS: append,query
