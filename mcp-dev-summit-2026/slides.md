@@ -23,7 +23,7 @@ An agent skill is a markdown file. It references tools by name. Those tools are 
 
 ---
 
-### Why not `.mcp.json`?
+## Why not `.mcp.json`?
 
 The obvious first approach — ship an `.mcp.json` with the skill listing the MCP servers it needs.
 
@@ -34,7 +34,7 @@ The obvious first approach — ship an `.mcp.json` with the skill listing the MC
 
 ---
 
-### Why not `server.json`?
+## Why not `server.json`?
 
 The file needs modification — the schema is closer, but has gaps.
 
@@ -52,7 +52,7 @@ Let's build a skill. The dependency is a profile — a YAML manifest packaged as
 
 ---
 
-### Example
+## Example
 
 Invoking skill-builder to create a meditations skill — server dependencies are resolved and packed into an OCI artifact:
 
@@ -71,7 +71,7 @@ text, provide just a small excerpt that includes the original text and a terse i
 
 ---
 
-### List of servers
+## List of servers
 
 *(Goal: Addressable + Decoupled)*
 
@@ -93,7 +93,7 @@ sequenceDiagram
 
 ---
 
-### Configuration
+## Configuration
 
 *(Goal: Configurable)*
 
@@ -117,7 +117,7 @@ Configuration with values either specified by the skill author or explicitly lef
 
 ---
 
-### Single Dependency
+## Single Dependency
 
 ```mermaid
 flowchart LR
@@ -132,8 +132,11 @@ flowchart LR
 ```
 
 ---
+<video id="demo-skill-builder" src="./media/videos/skill_builder.mp4" poster="./media/images/skill_builder_thumb.png" controls autoplay loop muted width="100%" height="100%"></video>
+<script>document.getElementById('demo-skill-builder').playbackRate = 1.5;</script>
+---
 
-## Running the Skill
+## Running the Skill 
 
 ```mermaid
 sequenceDiagram
@@ -168,12 +171,12 @@ sequenceDiagram
 
 ---
 
-<video id="demo-skill" src="./media/videos/profile_no_gateway.mp4" controls autoplay loop muted width="100%" height="100%"></video>
+<video id="demo-skill" src="./media/videos/profile_no_gateway.mp4" poster="./media/images/profile_no_gateway_thumb.png" controls autoplay loop muted width="100%" height="100%"></video>
 <script>document.getElementById('demo-skill').playbackRate = 1.5;</script>
 
 ---
 
-### Issues
+## Issues
 * No good way to "load" the servers
 * No lifecycle management — no clean way to uninstall or reload servers
 * `.mcp.json` wrangling — reading, merging, and writing config by hand is fragile
@@ -221,7 +224,7 @@ pre.mermaid svg { width: 100% !important; height: auto !important; }
 ```
 ---
 
-<video id="demo" src="./media/videos/profile_gateway.mp4" controls autoplay loop muted width="100%" height="100%"></video>
+<video id="demo" src="./media/videos/profile_gateway.mp4" poster="./media/images/profile_gateway_thumb.png" controls autoplay loop muted width="100%" height="100%"></video>
 <script>document.getElementById('demo').playbackRate = 1.5;</script>
 
 ---
@@ -242,6 +245,6 @@ Package your MCP server dependencies as an OCI artifact:
 
 ## References
 
-![QR Code](qr.png)
+![QR Code](./media/images/qr.png)
 
 `github.com/bobbyhouse/talks`
