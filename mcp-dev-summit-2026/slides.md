@@ -1,3 +1,9 @@
+---
+marp: true
+theme: docker
+paginate: true
+---
+
 # Distributing MCP Servers With OCI To Power Agent Skills
 
 **Bobby House**
@@ -127,7 +133,7 @@ flowchart LR
 
 ---
 
-### Running the Skill
+## Running the Skill
 
 ```mermaid
 sequenceDiagram
@@ -162,9 +168,8 @@ sequenceDiagram
 
 ---
 
-### Demo
-
-Invoke the meditations skill — no gateway, just the profile.
+<video id="demo-skill" src="./media/videos/profile_no_gateway.mp4" controls autoplay loop muted width="100%" height="100%"></video>
+<script>document.getElementById('demo-skill').playbackRate = 1.5;</script>
 
 ---
 
@@ -185,15 +190,53 @@ A thin, client-agnostic MCP layer that manages the runtime lifecycle of your ser
 
 ---
 
-### Demo
+## Running the Skill
 
-Invoke the meditations skill with the gateway — same skill, smoother experience.
+<style scoped>
+pre.mermaid svg { width: 100% !important; height: auto !important; }
+</style>
+
+```mermaid
+  sequenceDiagram
+      participant S as Skill
+      participant GW as Gateway
+      participant R as OCI Registry
+      participant D as Docker
+      participant SV as MCP Server(s)
+
+      S->>GW: load(profile@sha256:..., config)
+      GW->>R: pull profile@sha256:...
+      loop for each server in profile
+          GW->>D: docker run {server@sha256:...}
+          GW->>SV: tools/list
+          SV-->>GW: tool schemas
+      end
+
+      GW-->>S: "profile loaded"
+
+      S->>GW: project-gutenberg__list_passages({...})
+      GW->>SV: list_passages({...})
+      SV-->>GW: result
+      GW-->>S: result
+```
+---
+
+<video id="demo" src="./media/videos/profile_gateway.mp4" controls autoplay loop muted width="100%" height="100%"></video>
+<script>document.getElementById('demo').playbackRate = 1.5;</script>
 
 ---
 
 ## Closing
 
-This Profile and Gateway pattern I mentioned is essentially what we implemented at Docker in our open source project MCP Gateway as part of an experimental feature we called Profiles.
+Package your MCP server dependencies as an OCI artifact:
+
+* **Addressable** — a single immutable digest, no drift
+* **Configurable** — placeholders for values the skill author or user supplies
+* **Decoupled** — servers version and release independently
+
+**Bonus:** pair with a gateway for lifecycle management — load, reload, unload without touching `.mcp.json`
+
+*This is essentially what we built at Docker in [MCP Gateway](https://github.com/docker/mcp-gateway) with the Profiles feature.*
 
 ---
 
