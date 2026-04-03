@@ -5,6 +5,11 @@ MCP Dev Summit 2026
 
 - Talk: https://mcpdevsummitna26.sched.com/event/2Hbhw
 
+## Related Talks
+
+- [Combine Skills and MCP to Close the Context Gap](https://mcpdevsummitna26.sched.com/event/2Hbgy/combine-skills-and-mcp-to-close-the-context-gap-pedro-rodrigues-supabase) — Pedro Rodrigues, Supabase
+- [OCI Images as MCP Packaging: Supply Chain Security for AI Tools](https://mcpdevsummitna26.sched.com/event/2HbgX/oci-images-as-mcp-packaging-supply-chain-security-for-ai-tools-juan-antonio-osorio-stacklok) — Juan A. Osorio, Stacklok
+
 ## References
 
 ### MCP Servers
