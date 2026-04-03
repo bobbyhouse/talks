@@ -22,28 +22,39 @@ Sr. Software Engineer, Docker</p>
 <li><strong>Decoupled</strong> — MCP servers should have their own versioning and release cycle, referenced as dependencies rather than bundled with the skill</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-marpit-fragments="2" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="3" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="3" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="why-not-mcpjson">Why not <code>mcp.json</code>?</h2>
 <p>The obvious first approach — ship an <code>mcp.json</code> with the skill listing the MCP servers it needs.</p>
 <p><strong>Two problems a dependency shouldn't have</strong></p>
 <ul>
-<li data-marpit-fragment="1"><strong>It defines runtime</strong> — an execution model, not a dependency declaration</li>
-<li data-marpit-fragment="2"><strong>Configuration is static</strong> — cannot be deferred to the user</li>
+<li><strong>It defines runtime</strong> — an execution model, not a dependency declaration</li>
+<li><strong>Configuration is static</strong> — cannot be deferred to the user</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-marpit-fragments="3" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="4" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="4" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="why-not-serverjson">Why not <code>server.json</code>?</h2>
 <p>The file needs modification — the schema is closer, but has gaps.</p>
 <ul>
-<li data-marpit-fragment="1">Tags may need resolving to digests <em>(Addressable)</em></li>
-<li data-marpit-fragment="2">We want to supply or override values <em>(Configurable)</em></li>
-<li data-marpit-fragment="3"><code>isRequired</code>, <code>default</code>, <code>placeholder</code> ≠ &quot;who provides this value?&quot;</li>
+<li>Tags may need resolving to digests <em>(Addressable)</em></li>
+<li>We want to supply or override values <em>(Configurable)</em></li>
+<li><code>isRequired</code>, <code>default</code>, <code>placeholder</code> ≠ &quot;who provides this value?&quot;</li>
 </ul>
 <p>Worth exploring — feels very close.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="5" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
-<h2 id="authoring">Authoring</h2>
-<p>Let's build a skill. The dependency is a profile — a YAML manifest packaged as an OCI artifact and stored in a registry.</p>
+<h2 id="build-it-run-it">Build it. Run it.</h2>
+<p><strong>Skill Author</strong></p>
+<ul>
+<li>Authors the skill and its dependencies</li>
+<li>Packages the dependency as an OCI artifact</li>
+<li>Publishes to an OCI registry</li>
+</ul>
+<p><strong>User</strong></p>
+<ul>
+<li>Runs the agent skill</li>
+<li>Resolves the dependencies</li>
+<li>Provides user-supplied configuration</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="6" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="example">Example</h2>
@@ -153,21 +164,21 @@ sequenceDiagram
 <p><video id="demo-skill" src="./media/videos/profile_no_gateway.mp4" poster="./media/images/profile_no_gateway_thumb.png" controls autoplay loop muted width="100%" height="100%"></video></p>
 <script>document.getElementById('demo-skill').playbackRate = 1.5;</script>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-marpit-fragments="3" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="13" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="13" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="issues">Issues</h2>
 <ul>
-<li data-marpit-fragment="1">No good way to &quot;load&quot; the servers</li>
-<li data-marpit-fragment="2">No lifecycle management — no clean way to uninstall or reload servers</li>
-<li data-marpit-fragment="3"><code>mcp.json</code> wrangling — reading, merging, and writing config by hand is fragile</li>
+<li>No good way to &quot;load&quot; the servers</li>
+<li>No lifecycle management — no clean way to uninstall or reload servers</li>
+<li><code>mcp.json</code> wrangling — reading, merging, and writing config by hand is fragile</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-marpit-fragments="3" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="14" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
-<h2 id="gateway--profile-pattern">Gateway + Profile Pattern</h2>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="14" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
+<h2 id="gateway--oci-pattern">Gateway + OCI Pattern</h2>
 <p>A thin, client-agnostic MCP layer that manages the runtime lifecycle of your servers.</p>
 <ul>
-<li data-marpit-fragment="1">Reads the profile, pulls and loads servers</li>
-<li data-marpit-fragment="2">Handles what the profile alone cannot — load, reload, unload</li>
-<li data-marpit-fragment="3">Opens the door to further leveraging the dependency file</li>
+<li>Reads the OCI artifact, pulls and loads servers</li>
+<li>load, reload, unload</li>
+<li>Opens the door to further leveraging the OCI dependency</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-marpit-scope-ACAlRUbd="" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="15" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
@@ -200,13 +211,13 @@ sequenceDiagram
 <p><video id="demo" src="./media/videos/profile_gateway.mp4" poster="./media/images/profile_gateway_thumb.png" controls autoplay loop muted width="100%" height="100%"></video></p>
 <script>document.getElementById('demo').playbackRate = 1.5;</script>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-marpit-fragments="3" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="17" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="17" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="closing">Closing</h2>
 <p>Package your MCP server dependencies as an OCI artifact:</p>
 <ul>
-<li data-marpit-fragment="1"><strong>Addressable</strong> — a single immutable digest, no drift</li>
-<li data-marpit-fragment="2"><strong>Configurable</strong> — placeholders for values the skill author or user supplies</li>
-<li data-marpit-fragment="3"><strong>Decoupled</strong> — servers version and release independently</li>
+<li><strong>Addressable</strong> — a single immutable digest, no drift</li>
+<li><strong>Configurable</strong> — placeholders for values the skill author or user supplies</li>
+<li><strong>Decoupled</strong> — servers version and release independently</li>
 </ul>
 <p><strong>Bonus:</strong> pair with a gateway for lifecycle management — load, reload, unload without touching <code>mcp.json</code></p>
 <p><em>This is essentially what we built at Docker in <a href="https://github.com/docker/mcp-gateway">MCP Gateway</a> with the Profiles feature.</em></p>
