@@ -35,8 +35,8 @@ Sr. Software Engineer, Docker</p>
 <h2 id="why-not-serverjson">Why not <code>server.json</code>?</h2>
 <p>The file needs modification — the schema is closer, but has gaps.</p>
 <ul>
-<li>Tags may need resolving to digests <em>(Addressable)</em></li>
-<li>We want to supply or override values <em>(Configurable)</em></li>
+<li>Tags may need resolving to digests</li>
+<li>We want to supply or override values</li>
 <li><code>isRequired</code>, <code>default</code>, <code>placeholder</code> ≠ &quot;who provides this value?&quot;</li>
 </ul>
 <p>Worth exploring — feels very close.</p>
@@ -73,7 +73,6 @@ text, provide just a small excerpt that includes the original text and a terse i
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="7" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <h2 id="list-of-servers">List of servers</h2>
-<p><em>(Goal: Addressable + Decoupled)</em></p>
 <pre class="mermaid">
 sequenceDiagram
     participant SB as Skill Builder
@@ -91,9 +90,8 @@ sequenceDiagram
 </pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="8" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
-<h2 id="configuration">Configuration</h2>
-<p><em>(Goal: Configurable)</em></p>
-<p>Configuration with values either specified by the skill author or explicitly left for the user to supply.</p>
+<h2 id="oci-dependency-contents">OCI Dependency Contents</h2>
+<p>List of servers and their configuration</p>
 <pre><code>1 name: meditations-profile
 2 servers:
 3   - name: io.github.bobbyhouse/project-gutenberg-mcp
@@ -108,20 +106,6 @@ sequenceDiagram
 12       APPEND_LOG_TOOLS: append,query
 13       APPEND_LOG_FILE: /data/log.jsonl 
 </code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="9" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
-<h2 id="single-dependency">Single Dependency</h2>
-<pre class="mermaid">
-flowchart LR
-    Ref(["registry/ns/profile@sha256:abc"])
-
-    subgraph Image["OCI Artifact"]
-        S1["server-a@sha256:111...\nconfig: KEY=val, KEY2="]
-        S2["server-b@sha256:222...\nconfig: KEY=val"]
-    end
-
-    Ref --&gt; Image
-</pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="docker" lang="en-US" data-marpit-pagination="10" style="--paginate:true;--theme:docker;" data-marpit-pagination-total="18">
 <p><video id="demo-skill-builder" src="./media/videos/skill_builder.mp4" poster="./media/images/skill_builder_thumb.png" controls autoplay loop muted width="100%" height="100%"></video></p>
